@@ -5,8 +5,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.Base64
-import kotlin.math.log
 
 object ApiClient {
 
@@ -26,4 +24,5 @@ object ApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
 }

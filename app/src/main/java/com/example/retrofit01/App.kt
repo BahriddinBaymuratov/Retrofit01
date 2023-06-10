@@ -9,5 +9,4 @@ class App: Application() {
         super.onCreate()
         Pluto.initialize(this)
     }
-
 }
