@@ -9,4 +9,5 @@ data class MarvelData(
     val publisher: String,
     val realname: String,
     val team: String
+
 )
