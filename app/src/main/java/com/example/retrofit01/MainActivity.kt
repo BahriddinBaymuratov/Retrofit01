@@ -1,23 +1,17 @@
 package com.example.retrofit01
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import com.example.retrofit01.model.MarvelData
-import com.example.retrofit01.model.reqres.UserData
-import com.example.retrofit01.model.reqresuser.UserCreator
-import com.example.retrofit01.model.reqresuser.UserRes
-import com.example.retrofit01.model.single.SingleUser
+import androidx.appcompat.app.AppCompatActivity
 import com.example.retrofit01.networking.ApiClient
 import com.example.retrofit01.networking.ApiService
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.IOException
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
+    private val TAG = "MainActivity"
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,15 +33,22 @@ class MainActivity : AppCompatActivity() {
 
         val apiService = ApiClient.getRetrofit().create(ApiService::class.java)
 
-        apiService.createUser(UserCreator("Developer","Jonathan")).enqueue(object :Callback<UserRes>{
-            override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) {
-                if (response.isSuccessful){
-                    Log.d("@@@", "onResponse: ${response.body()}")
-                }
+        apiService.getSingleUser(1)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                Log.d(TAG, "onCreate: $it ")
             }
 
-            override fun onFailure(call: Call<UserRes>, t: Throwable) {}
-        })
+//        apiService.createUser(UserCreator("Developer","Jonathan")).enqueue(object :Callback<UserRes>{
+//            override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) {
+//                if (response.isSuccessful){
+//                    Log.d("@@@", "onResponse: ${response.body()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<UserRes>, t: Throwable) {}
+//        })
         
 //        apiService.getSingleUser(23).enqueue(object : Callback<SingleUser>{
 //            override fun onResponse(call: Call<SingleUser>, response: Response<SingleUser>) {

@@ -30,7 +30,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
 }
@@ -53,6 +53,10 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.2"
     // logging interceptor
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
+
+    // adapter rxjava
+    implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
+    implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
 
     // pluto
     debugImplementation 'com.mocklets:pluto:1.1.3'
